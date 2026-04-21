@@ -1,6 +1,6 @@
 # Cyclist Community README
 ## Contributors:
-*MEHURZEL
+* MEHURZEL
 * [add names]
 
 ## Compilation:
