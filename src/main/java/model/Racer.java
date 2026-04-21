@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Racer extends User{
     private String cardInfo;
     private int category;
-    private List<Race> RacesAttended;
+    private ArrayList<Race> RacesAttended;
     private int totalWins;
 
     public void signUp(){}
