@@ -1,3 +1,5 @@
+package Controller;
+
 public class EntranceController{
 
     public void handleLogin(){}
