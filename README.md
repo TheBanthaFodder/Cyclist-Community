@@ -1,10 +1,10 @@
-#Cyclist Community README
-##Contributors:
+# Cyclist Community README
+## Contributors:
 *MEHURZEL
 * [add names]
 
-##Compilation:
+## Compilation:
 
-##Running the Program:
+## Running the Program:
 
-##Notes:
+## Notes:
