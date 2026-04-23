@@ -35,11 +35,6 @@ public class RacerModel {
         return raceRegistration.purchaseLicense();
     }
 
-    public List<Race> getAvailableRaces() {
-        // TODO
-        return OrganizerModel.getAllRaces();
-    }
-
     public List<Race> reviewRace() {
         // TODO
         return raceResult.reviewRace();
@@ -48,20 +43,6 @@ public class RacerModel {
     public boolean registerForRace(int raceIndex) {
         // TODO
         return false;
-    }
-
-    public int getPlacementForRace(int raceIndex) {
-        // TODO
-        return 0;
-    }
-
-    public void addFeedback(int raceIndex, String feedback) {
-        // TODO
-    }
-
-    public String getFeedbackForRace(int raceIndex) {
-        // TODO
-        return "";
     }
 
     public void setUser(UserContext userType) {
