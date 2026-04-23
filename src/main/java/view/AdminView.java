@@ -1,18 +1,29 @@
-package View;
+package view;
 
-import java.util.Scanner;
+public class AdminView extends CliView {
 
-public class AdminView{
+    public AdminView() {
+        super();
+    }
 
-    public void viewUserAccounts(){}
+    public void viewUserAccounts() {
+        printMessage("Displaying user accounts.");
+    }
 
-    public void viewManageLicenses(){}
+    public void viewManageLicenses() {
+        printMessage("Displaying license management.");
+    }
 
-    public void viewSystemSettings(){}
+    public void viewSystemSettings() {
+        printMessage("Displaying system settings.");
+    }
 
-    public void getUserInput(){}
+    @Override
+    public String getUserInput() {
+        return super.getUserInput("Admin input: ");
+    }
 
-    public void viewErrors(){}
-
-    public void viewAccount(){}
+    public void viewAccount(String accountData) {
+        printMessage("Displaying administrator account: " + accountData);
+    }
 }

@@ -1,14 +1,21 @@
-package View;
+package view;
 
-import java.util.Scanner;
+public class EntranceView extends CliView {
 
-public class EntranceView{
-    public void viewLogin(){}
+    public EntranceView() {
+        super();
+    }
 
-    public void viewSignUp(){}
+    public void viewLogin() {
+        printMessage("Displaying login form.");
+    }
 
-    public void vewErrors(){}
+    public void viewSignUp() {
+        printMessage("Displaying sign-up form.");
+    }
 
-    public void getUserInput(){}
-
+    @Override
+    public String getUserInput() {
+        return super.getUserInput("Entrance input: ");
+    }
 }

@@ -1,15 +1,57 @@
-package Controller;
+package controller;
 
-public class AdminController{
+import model.application.AdminModel;
+import model.race.RaceLicense;
+import model.user.UserContext;
+import view.AdminView;
 
-    public void handleUserAccounts(){}
+public class AdminController {
 
-    public void handleManageLicenses(){}
+    private final AdminModel model;
+    private final AdminView view;
 
-    public void handleSystemSettings(){}
+    public AdminController() {
+        this(new AdminModel(), new AdminView());
+    }
 
-    public void handleAccount(){}
+    public AdminController(AdminModel model, AdminView view) {
+        this.model = model;
+        this.view = view;
+    }
 
-    public void handleErrors(){}
+    public void handleUserAccounts() {
+        model.userAccounts();
+        view.viewUserAccounts();
+    }
 
+    public void handleManageLicenses() {
+        RaceLicense license = model.raceLicenses();
+        if (license == null) {
+            view.addError("Select a racer account before managing licenses.");
+            handleErrors();
+            return;
+        }
+        view.viewManageLicenses();
+    }
+
+    public void handleSystemSettings() {
+        model.manageSystemSettings();
+        view.viewSystemSettings();
+    }
+
+    public void handleAccount() {
+        view.viewAccount(model.getUser().getUserData());
+    }
+
+    public void handleErrors() {
+        view.viewErrors();
+    }
+
+    public void setUser(UserContext user) {
+        model.setUser(user);
+    }
+
+    public void setManagedUser(UserContext user) {
+        model.setManagedUser(user);
+    }
 }

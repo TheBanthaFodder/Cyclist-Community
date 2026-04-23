@@ -1,17 +1,54 @@
-package Controller;
+package controller;
 
-public class RacerController{
+import model.application.RacerModel;
+import model.user.UserContext;
+import view.RacerView;
 
-    public void handleSystemSignUp(){}
+public class RacerController {
 
-    public void handleBuyLicense(){}
+    private final RacerModel model;
+    private final RacerView view;
 
-    public void handleRaceRegistration(){}
+    public RacerController() {
+        this(new RacerModel(), new RacerView());
+    }
 
-    public void handleReviewRace(){}
+    public RacerController(RacerModel model, RacerView view) {
+        this.model = model;
+        this.view = view;
+    }
 
-    public void handleAccount(){}
+    public void handleSystemSignUp() {
+        String name = view.getUserInput("Enter racer name: ");
+        String ccInfo = view.getUserInput("Enter credit card info: ");
+        model.signUp(name, ccInfo);
+        view.viewSystemSignUp();
+    }
 
-    public void handleErrors(){}
+    public void handleBuyLicense() {
+        model.buyLicense();
+        view.viewBuyLicense();
+    }
 
+    public void handleRaceRegistration() {
+        // TODO
+        view.viewRaceRegistration();
+    }
+
+    public void handleReviewRace() {
+        // TODO
+        view.viewReviewRace(model.reviewRace());
+    }
+
+    public void handleAccount() {
+        view.viewAccount(model.getUser().getUserData());
+    }
+
+    public void handleErrors() {
+        view.viewErrors();
+    }
+
+    public void setUser(UserContext user) {
+        model.setUser(user);
+    }
 }

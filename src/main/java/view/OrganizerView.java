@@ -1,20 +1,43 @@
-package View;
+package view;
 
-import java.util.Scanner;
+import java.util.List;
 
-public class OrganizerView{
+import model.race.Race;
+import model.user.Racer;
 
-    public void viewCreateRace(){}
+public class OrganizerView extends CliView {
 
-    public void viewManageRace(){}
+    public OrganizerView() {
+        super();
+    }
 
-    public void viewAddRaceResults(){}
+    public void viewCreateRace(Race race) {
+        printMessage("Created race: " + race);
+        printMessage("Route: " + race.getRoute().getRoute());
+    }
 
-    public void getUserInput(){}
+    public void viewManageRace(List<Race> races) {
+        printMessage("Organizer races:");
+        for (int i = 0; i < races.size(); i++) {
+            printMessage((i + 1) + ". " + races.get(i));
+        }
+    }
 
-    public void viewErrors(){}
+    public void viewParticipants(Race race) {
+        // TODO
+        printMessage("Participant list flow not finished yet.");
+    }
 
-    public void viewAccount(){}
+    public void viewAddRaceResults() {
+        printMessage("Race result added.");
+    }
 
+    @Override
+    public String getUserInput() {
+        return super.getUserInput("Organizer input: ");
+    }
 
+    public void viewAccount(String accountData) {
+        printMessage("Displaying organizer account: " + accountData);
+    }
 }
