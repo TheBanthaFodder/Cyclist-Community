@@ -24,8 +24,11 @@ public class OrganizerView extends CliView {
     }
 
     public void viewParticipants(Race race) {
-        // TODO
-        printMessage("Participant list flow not finished yet.");
+        printMessage("Participants for " + race + ":");
+        List<Racer> racers = race.getParticipants();
+        for (int i = 0; i < racers.size(); i++) {
+            printMessage((i + 1) + ". " + racers.get(i).getName());
+        }
     }
 
     public void viewAddRaceResults() {

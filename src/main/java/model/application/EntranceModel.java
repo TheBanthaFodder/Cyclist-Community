@@ -1,5 +1,6 @@
 package model.application;
 
+import model.race.Category;
 import model.user.Racer;
 import model.user.UserContext;
 
@@ -12,7 +13,9 @@ public class EntranceModel {
     }
 
     public UserContext signUp(String name, String ccInfo) {
-        userType = new UserContext(new Racer(ccInfo, name));
+        Racer racer = new Racer(ccInfo, name);
+        Category.attachRacer(racer);
+        userType = new UserContext(racer);
         return userType;
     }
 

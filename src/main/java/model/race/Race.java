@@ -14,7 +14,7 @@ public class Race {
     private boolean official;
     private LocalDate lastDayToRegister;
     private final List<Racer> participants;
-    private final List<Integer> categories;
+    private final List<Category> categories;
     private Route route;
 
     public Race() {
@@ -36,23 +36,25 @@ public class Race {
         LocalDate lastDayToRegister,
         Route route
     ) {
+        this.participants = new ArrayList<>();
+        this.categories = Category.getAllCategories();
+        createRace(date, raceType, registrationLimit, official, lastDayToRegister, route);
+    }
+
+    public void createRace(
+        LocalDate date,
+        String raceType,
+        int registrationLimit,
+        boolean official,
+        LocalDate lastDayToRegister,
+        Route route
+    ) {
         this.date = date;
         this.raceType = raceType;
         this.registrationLimit = registrationLimit;
         this.official = official;
         this.lastDayToRegister = lastDayToRegister;
         this.route = route;
-        this.participants = new ArrayList<>();
-        this.categories = new ArrayList<>();
-        categories.add(5);
-        categories.add(4);
-        categories.add(3);
-        categories.add(2);
-        categories.add(1);
-    }
-
-    public void createRace() {
-        // TODO
     }
 
     public void setRegistrationLimit() {
@@ -66,12 +68,7 @@ public class Race {
     }
 
     public boolean registerParticipant(Racer racer) {
-        // TODO
         if (participants.size() >= registrationLimit || !isRegistrationOpen()) {
-            return false;
-        }
-
-        if (official && !categories.contains(racer.getCategory())) {
             return false;
         }
 
@@ -108,7 +105,7 @@ public class Race {
         return participants;
     }
 
-    public List<Integer> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 

@@ -17,25 +17,39 @@ public class RaceRegistration {
 
     public Racer newRacer() {
         racer = new Racer("CC-NEW", "New Racer");
+        Category.attachRacer(racer);
         return racer;
     }
 
     public Racer newRacer(String ccInfo, String name) {
         racer = new Racer(ccInfo, name);
+        Category.attachRacer(racer);
         return racer;
     }
 
     public RaceLicense purchaseLicense() {
-        // TODO
+        // Provides option of upgrading to new category of license
         if (license == null) {
-            license = new RaceLicense();
+            license = new RaceLicense(racer.getCategory());
+        } else {
+            license.manageLicenses(racer.getCategory());
         }
         return license;
     }
 
     public boolean signUpForRace() {
-        // TODO
-        return false;
+        if (race.isOfficial()) {
+            if (license == null || !license.isActive()) {
+                return false;
+            }
+
+            // racer may be correct cat but haven't updated license
+            if (license.getCategoryLevel() != racer.getCategory()) {
+                return false;
+            }
+        }
+
+        return race.registerParticipant(racer);
     }
 
     public boolean signUpForRace(Race selectedRace) {

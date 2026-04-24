@@ -33,23 +33,31 @@ public class OrganizerModel {
     ) {
         Route route = new Route(miles, directions);
         Race race = new Race(date, raceType, registrationLimit, official, lastDayToRegister, route);
-        race.createRace();
         managedRaces.add(race);
         return race;
     }
 
     public List<Race> manageRace() {
-        // TODO
+        for (Race race : managedRaces) {
+            race.setRegistrationLimit();
+        }
         return managedRaces;
     }
 
     public List<Race> addRaceResults() {
-        // TODO
         return raceResult.reviewRace();
     }
 
     public void addRaceResult(int raceIndex, int racerIndex, int placement) {
-        // TODO
+        Race race = managedRaces.get(raceIndex);
+        Racer racer = race.getParticipants().get(racerIndex);
+
+        raceResult.recordResult(race, racer, placement);
+        racer.recordRaceResult(race, placement, race.isOfficial());
+
+        for (Category category : race.getCategories()) {
+            category.checkForUpgrade();
+        }
     }
 
     public void setUser(UserContext userType) {
@@ -65,7 +73,6 @@ public class OrganizerModel {
     }
 
     public static List<Race> getAllRaces() {
-        // TODO
         return managedRaces;
     }
 }
