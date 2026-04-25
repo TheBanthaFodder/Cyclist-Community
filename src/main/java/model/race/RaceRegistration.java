@@ -1,6 +1,6 @@
-package model.race;
+package main.java.model.race;
 
-import model.user.Racer;
+import main.java.model.user.Racer;
 
 public class RaceRegistration {
 

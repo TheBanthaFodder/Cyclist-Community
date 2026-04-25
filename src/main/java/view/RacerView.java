@@ -1,8 +1,8 @@
-package view;
+package main.java.view;
 
-import java.util.List;
+import java.util.List; 
 
-import model.race.Race;
+import main.java.model.race.Race;
 
 public class RacerView extends CliView {
 

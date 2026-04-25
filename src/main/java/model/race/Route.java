@@ -1,4 +1,4 @@
-package model.race;
+package main.java.model.race;
 
 public class Route {
 

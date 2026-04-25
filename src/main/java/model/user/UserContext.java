@@ -1,24 +1,15 @@
-package model.user;
+package main.java.model.user;
 
 public class UserContext {
-
+	
     private UserStrategy strategy;
-
-    public UserContext() {
-    }
-
-    public UserContext(UserStrategy strategy) {
-        this.strategy = strategy;
-    }
-
+    
+    //set concrete strategy
     public void setUserStrategy(UserStrategy strategy) {
         this.strategy = strategy;
     }
-
-    public UserStrategy getUserStrategy() {
-        return strategy;
-    }
-
+    
+    //return user data
     public String getUserData() {
         return strategy.getUserData();
     }

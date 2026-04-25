@@ -1,13 +1,15 @@
-package model.user;
+package main.java.model.user;
 
-public class Organizer extends User {
+public class Organizer implements UserStrategy {
+	
+	private String name;
 
     public Organizer(String name) {
-        super(name);
+        this.name = name;
     }
 
     @Override
     public String getUserData() {
-        return String.format("Organizer{name='%s'}", getName());
+        return String.format("Organizer{name='%s'}", this.name);
     }
 }
