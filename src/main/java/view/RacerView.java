@@ -30,7 +30,6 @@ public class RacerView extends CliView {
     }
 
     public void viewReviewRace(List<Race> races) {
-        // TODO
         printMessage("Past races:");
         for (int i = 0; i < races.size(); i++) {
             printMessage((i + 1) + ". " + races.get(i));
@@ -38,13 +37,13 @@ public class RacerView extends CliView {
     }
 
     public void viewSelectedRace(Race race, int placement, String feedback) {
-        // TODO
-        printMessage("Race detail view not finished yet.");
+        printMessage("Reviewing: " + race);
+        printMessage("Recorded placement: " + placement);
+        printMessage("Current feedback: " + feedback);
     }
 
     public void viewFeedbackSaved() {
-        // TODO
-        printMessage("Feedback flow not finished yet.");
+        printMessage("Feedback saved.");
     }
 
     @Override

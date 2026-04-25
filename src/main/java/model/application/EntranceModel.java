@@ -1,5 +1,6 @@
 package model.application;
 
+<<<<<<< HEAD
 import java.util.HashMap; 
 import java.util.Map;
 
@@ -7,6 +8,11 @@ import main.java.model.user.Administrator;
 import main.java.model.user.Organizer;
 import main.java.model.user.Racer;
 import src.main.java.model.user.UserContext;
+=======
+import model.race.Category;
+import model.user.Racer;
+import model.user.UserContext;
+>>>>>>> 342d261c637a9ba762e255b2b22630c208b424c4
 
 public class EntranceModel {
 
@@ -55,6 +61,7 @@ public class EntranceModel {
         return uniqueID;
     }
 
+<<<<<<< HEAD
     public String signUpAdministrator(String name) {
     	UserContext copy;
         copy.setUserStrategy(new Administrator(name)); //set type and return unique ID
@@ -64,6 +71,21 @@ public class EntranceModel {
         
         Admin.put(uniqueID,copy);
         return uniqueID;
+=======
+    public UserContext signUp(String name, String ccInfo) {
+        Racer racer = new Racer(ccInfo, name);
+        Category.attachRacer(racer);
+        userType = new UserContext(racer);
+        return userType;
+    }
+
+    public void setUserType(UserContext userType) {
+        this.userType = userType;
+    }
+
+    public UserContext getUserType() {
+        return userType;
+>>>>>>> 342d261c637a9ba762e255b2b22630c208b424c4
     }
     
     
