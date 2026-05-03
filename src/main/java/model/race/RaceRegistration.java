@@ -4,6 +4,13 @@ import model.user.Racer;
 
 public class RaceRegistration {
 
+    public enum RegistrationStatus {
+        SUCCESS,
+        RACE_FULL,
+        INELIGIBLE,
+        PAYMENT_FAILED
+    }
+
     private Racer racer;
     private RaceLicense license;
     private Race race;
@@ -38,23 +45,41 @@ public class RaceRegistration {
     }
 
     public boolean signUpForRace() {
-        if (race.isOfficial()) {
-            if (license == null || !license.isActive()) {
-                return false;
-            }
+        return registerWithPayment(racer.getCcInfo()) == RegistrationStatus.SUCCESS;
+    }
 
-            // racer may be correct cat but haven't updated license
-            if (license.getCategoryLevel() != racer.getCategory()) {
-                return false;
-            }
+    public RegistrationStatus registerWithPayment(String paymentInfo) {
+        // report the first reason registration cannot continue.
+        if (!race.hasAvailableSeats()) {
+            return RegistrationStatus.RACE_FULL;
         }
 
-        return race.registerParticipant(racer);
+        if (!race.isEligible(racer, license)) {
+            return RegistrationStatus.INELIGIBLE;
+        }
+
+        if (!processPayment(paymentInfo)) {
+            return RegistrationStatus.PAYMENT_FAILED;
+        }
+
+        if (!race.registerParticipant(racer)) {
+            return RegistrationStatus.RACE_FULL;
+        }
+
+        return RegistrationStatus.SUCCESS;
     }
 
     public boolean signUpForRace(Race selectedRace) {
         race = selectedRace;
         return signUpForRace();
+    }
+
+    public boolean processPayment(String paymentInfo) {
+        // fake payment system for implementation
+        return paymentInfo != null
+            && !paymentInfo.trim().isEmpty()
+            && !paymentInfo.equalsIgnoreCase("fail")
+            && !paymentInfo.equalsIgnoreCase("decline");
     }
 
     public Racer getRacer() {

@@ -1,8 +1,13 @@
 package controller;
 
+import java.time.LocalDate;
+
 import model.application.EntranceModel;
+import model.application.OrganizerModel;
+import model.race.Race;
 import model.user.Administrator;
 import model.user.Organizer;
+import model.user.Racer;
 import model.user.UserContext;
 import view.EntranceView;
 
@@ -37,8 +42,7 @@ public class EntranceController {
         this.organizerController = organizerController;
         this.adminController = adminController;
 
-        organizerController.setUser(new UserContext(new Organizer("Default Organizer")));
-        adminController.setUser(new UserContext(new Administrator("Default Admin")));
+        seedDummyData();
     }
 
     public void runApp() {
@@ -72,17 +76,23 @@ public class EntranceController {
             return;
         }
 
-        view.viewLogin();
-        String id = view.getUserInput("Enter login ID: ");
-        UserContext userType = model.logIn(id);
+        boolean retry = true;
+        while (retry) {
+            view.viewLogin();
+            // Login is ID-based, so show the generated demo IDs before prompting.
+            view.viewLoginIDs(model.getLoginIDs());
+            String id = view.getUserInput("Enter login ID: ");
+            UserContext userType = model.logIn(id);
 
-        if (userType == null) {
+            if (userType != null) {
+                sendUserType(userType);
+                return;
+            }
+
             view.addError("Invalid login ID.");
             handleErrors();
-            return;
+            retry = view.getUserInput("Retry login? (y/n): ").equalsIgnoreCase("y");
         }
-
-        sendUserType(userType);
     }
 
     public void handleSignUp() {
@@ -132,6 +142,7 @@ public class EntranceController {
             return;
         }
 
+        // Route the shared UserContext to the controller that matches the actual role.
         if (userType.getUserStrategy() instanceof Administrator) {
             adminController.setUser(userType);
             runAdministratorFlow();
@@ -155,6 +166,55 @@ public class EntranceController {
     private void wireSignedUpRacer(UserContext racerUser) {
         racerController.setUser(racerUser);
         adminController.setManagedUser(racerUser);
+    }
+
+    private void seedDummyData() {
+        // Dummy data for startup so the registration activity diagram can be executed.
+        // These generated IDs are Racer1, Organizer1, and Admin1.
+        String racerID = model.signUpRacer("Demo Racer", "4111111111111111");
+        wireSignedUpRacer(model.logIn(racerID));
+
+        String organizerID = model.signUpOrganizer("Default Organizer");
+        organizerController.setUser(model.logIn(organizerID));
+
+        String adminID = model.signUpAdministrator("Default Admin");
+        adminController.setUser(model.logIn(adminID));
+
+        if (!OrganizerModel.getAllRaces().isEmpty()) {
+            return;
+        }
+
+        // The three races cover the main registration branches: success, ineligible, and full.
+        OrganizerModel seedOrganizer = new OrganizerModel();
+        seedOrganizer.createRace(
+            LocalDate.now().plusWeeks(2),
+            "Community Fun Ride",
+            25,
+            false,
+            LocalDate.now().plusWeeks(1),
+            12.5,
+            "Start at the community park and loop around the river trail."
+        );
+        seedOrganizer.createRace(
+            LocalDate.now().plusWeeks(3),
+            "State Championship Road Race",
+            50,
+            true,
+            LocalDate.now().plusWeeks(2),
+            42.0,
+            "Rolling highway route with one categorized climb."
+        );
+
+        Race fullRace = seedOrganizer.createRace(
+            LocalDate.now().plusWeeks(1),
+            "Sold Out Criterium",
+            1,
+            false,
+            LocalDate.now().plusDays(3),
+            18.0,
+            "Closed downtown loop."
+        );
+        fullRace.registerParticipant(new Racer("4000000000000002", "Full Race Placeholder"));
     }
 
     private void runRacerFlow() {

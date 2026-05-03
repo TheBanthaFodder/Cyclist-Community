@@ -21,12 +21,44 @@ public class RacerView extends CliView {
     public void viewAvailableRaces(List<Race> races) {
         printMessage("Available races:");
         for (int i = 0; i < races.size(); i++) {
-            printMessage((i + 1) + ". " + races.get(i));
+            Race race = races.get(i);
+            printMessage(
+                (i + 1)
+                    + ". "
+                    + race
+                    + " - "
+                    + race.getSeatsRemaining()
+                    + " seats remaining"
+            );
         }
     }
 
     public void viewRaceRegistration() {
         printMessage("Race registration complete.");
+    }
+
+    public void viewRaceFull() {
+        printMessage("Selected race is full.");
+    }
+
+    public void viewIneligible() {
+        printMessage("You are not eligible for this race.");
+    }
+
+    public void viewRegistrationConfirmation(Race race) {
+        printMessage("Confirming registration for: " + race);
+    }
+
+    public void viewPaymentFailure() {
+        printMessage("Payment was unsuccessful.");
+    }
+
+    public void viewConfirmationSent() {
+        printMessage("Confirmation sent.");
+    }
+
+    public void viewRegistrationCancelled() {
+        printMessage("Registration cancelled.");
     }
 
     public void viewReviewRace(List<Race> races) {

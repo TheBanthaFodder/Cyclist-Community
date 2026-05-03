@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.application.RacerModel;
 import model.race.Race;
+import model.race.RaceRegistration.RegistrationStatus;
 import model.user.UserContext;
 import view.RacerView;
 
@@ -34,24 +35,49 @@ public class RacerController {
     }
 
     public void handleRaceRegistration() {
-        List<Race> races = model.getAvailableRaces();
-        if (races.isEmpty()) {
-            view.addError("No races have been created yet.");
-            handleErrors();
-            return;
+        boolean selectingRace = true;
+
+        // Keep returning to race selection when the selected race is full or ineligible.
+        while (selectingRace) {
+            List<Race> races = model.getAvailableRaces();
+            if (races.isEmpty()) {
+                view.addError("No races have been created yet.");
+                handleErrors();
+                return;
+            }
+
+            view.viewAvailableRaces(races);
+            int raceIndex = getRaceIndex(races.size());
+            if (raceIndex < 0) {
+                return;
+            }
+
+            // Checks to make sure user can actually register for race
+            if (!model.raceHasSeats(raceIndex)) {
+                view.viewRaceFull();
+                selectingRace = wantsToSelectNewRace();
+                continue;
+            }
+
+            if (!model.isEligibleForRace(raceIndex)) {
+                view.viewIneligible();
+                selectingRace = wantsToSelectNewRace();
+                continue;
+            }
+
+            Race selectedRace = races.get(raceIndex);
+            view.viewRegistrationConfirmation(selectedRace);
+            if (!view.getUserInput("Confirm registration? (y/n): ").equalsIgnoreCase("y")) {
+                view.viewRegistrationCancelled();
+                return;
+            }
+
+            if (collectPaymentAndRegister(raceIndex)) {
+                return;
+            }
+
+            selectingRace = wantsToSelectNewRace();
         }
-
-        view.viewAvailableRaces(races);
-        int raceIndex = Integer.parseInt(view.getUserInput("Choose race number: ")) - 1;
-        boolean registered = model.registerForRace(raceIndex);
-
-        if (!registered) {
-            view.addError("Registration failed.");
-            handleErrors();
-            return;
-        }
-
-        view.viewRaceRegistration();
     }
 
     public void handleReviewRace() {
@@ -88,5 +114,59 @@ public class RacerController {
 
     public void setUser(UserContext user) {
         model.setUser(user);
+    }
+
+    private int getRaceIndex(int raceCount) {
+        try {
+            int raceIndex = Integer.parseInt(view.getUserInput("Choose race number: ")) - 1;
+            if (raceIndex < 0 || raceIndex >= raceCount) {
+                view.addError("Choose a race from the list.");
+                handleErrors();
+                return -1;
+            }
+            return raceIndex;
+        } catch (NumberFormatException error) {
+            view.addError("Race number must be numeric.");
+            handleErrors();
+            return -1;
+        }
+    }
+
+    private boolean collectPaymentAndRegister(int raceIndex) {
+        boolean retryPayment = true;
+
+        // Payment can fail without changing the selected race, so retry happens here.
+        while (retryPayment) {
+            String paymentInfo = view.getUserInput("Enter payment info: ");
+            RegistrationStatus status = model.registerForRace(raceIndex, paymentInfo);
+
+            switch (status) {
+                case SUCCESS:
+                    view.viewConfirmationSent();
+                    view.viewRaceRegistration();
+                    return true;
+                case PAYMENT_FAILED:
+                    view.viewPaymentFailure();
+                    retryPayment = view.getUserInput("Retry payment? (y/n): ").equalsIgnoreCase("y");
+                    break;
+                case RACE_FULL:
+                    view.viewRaceFull();
+                    return false;
+                case INELIGIBLE:
+                    view.viewIneligible();
+                    return false;
+                default:
+                    view.addError("Registration failed.");
+                    handleErrors();
+                    return false;
+            }
+        }
+
+        view.viewRegistrationCancelled();
+        return true;
+    }
+
+    private boolean wantsToSelectNewRace() {
+        return view.getUserInput("Select a different race? (y/n): ").equalsIgnoreCase("y");
     }
 }

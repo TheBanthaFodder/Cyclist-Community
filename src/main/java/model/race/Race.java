@@ -72,9 +72,30 @@ public class Race {
             return false;
         }
 
+        if (participants.contains(racer)) {
+            return false;
+        }
+
         participants.add(racer);
         racer.addRaceAttended(this);
         return true;
+    }
+
+    public boolean hasAvailableSeats() {
+        return participants.size() < registrationLimit && isRegistrationOpen();
+    }
+
+    public int getSeatsRemaining() {
+        return Math.max(0, registrationLimit - participants.size());
+    }
+
+    public boolean isEligible(Racer racer, RaceLicense license) {
+        if (!official) {
+            return true;
+        }
+
+        // Official races require an active license for the racer's current category.
+        return license != null && license.isActive() && license.getCategoryLevel() == racer.getCategory();
     }
 
     public boolean isRegistrationOpen() {

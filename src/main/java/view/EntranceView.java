@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 public class EntranceView extends CliView {
 
     public EntranceView() {
@@ -8,6 +10,13 @@ public class EntranceView extends CliView {
 
     public void viewLogin() {
         printMessage("Displaying login form.");
+    }
+
+    public void viewLoginIDs(List<String> loginIDs) {
+        printMessage("Available login IDs:");
+        for (String loginID : loginIDs) {
+            printMessage("- " + loginID);
+        }
     }
 
     public void viewSignUp() {

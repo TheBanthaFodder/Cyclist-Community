@@ -6,6 +6,7 @@ import java.util.List;
 import model.race.Race;
 import model.race.RaceLicense;
 import model.race.RaceRegistration;
+import model.race.RaceRegistration.RegistrationStatus;
 import model.race.RaceResult;
 import model.user.Racer;
 import model.user.UserContext;
@@ -58,6 +59,22 @@ public class RacerModel {
         Race race = getAvailableRaces().get(raceIndex);
         raceRegistration.setRace(race);
         return raceRegistration.signUpForRace();
+    }
+
+    public RegistrationStatus registerForRace(int raceIndex, String paymentInfo) {
+        Race race = getAvailableRaces().get(raceIndex);
+        raceRegistration.setRace(race);
+        return raceRegistration.registerWithPayment(paymentInfo);
+    }
+
+    public boolean raceHasSeats(int raceIndex) {
+        return getAvailableRaces().get(raceIndex).hasAvailableSeats();
+    }
+
+    public boolean isEligibleForRace(int raceIndex) {
+        Race race = getAvailableRaces().get(raceIndex);
+        // Eligibility depends on both the selected race and any license this racer has bought.
+        return race.isEligible(getCurrentRacer(), raceRegistration.getLicense());
     }
 
     public int getPlacementForRace(int raceIndex) {

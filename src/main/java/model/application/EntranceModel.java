@@ -1,6 +1,8 @@
 package model.application;
 
 import java.util.HashMap; 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import model.user.Administrator;
@@ -12,21 +14,24 @@ public class EntranceModel {
 
     private UserContext userType;
     
-    //maps to store user types for login with unique ID
+    // Each map stores accounts for one role. The generated ID is the login key.
     Map<String, UserContext> Racers = new HashMap<>();
     Map<String, UserContext> Organizers = new HashMap<>();
     Map<String, UserContext> Admin = new HashMap<>();
      
-    //check to see if 
+    // Search each role map for the login ID and remember the matched account as current.
     public UserContext logIn(String id) {
     	if(Racers.containsKey(id)) {
-    		return Racers.get(id);
+    		userType = Racers.get(id);
+    		return userType;
     	}
     	if(Admin.containsKey(id)) {
-    		return Admin.get(id);
+    		userType = Admin.get(id);
+    		return userType;
     	}
     	if(Organizers.containsKey(id)) {
-    		return Organizers.get(id);
+    		userType = Organizers.get(id);
+    		return userType;
     	}
     	return null;
     }
@@ -34,12 +39,22 @@ public class EntranceModel {
     public boolean validateUserAccount() {
         return !Racers.isEmpty() || !Admin.isEmpty() || !Organizers.isEmpty();
     }
+
+    // Used by the login screen so demo users can see which IDs are available.
+    public List<String> getLoginIDs() {
+        List<String> loginIDs = new ArrayList<>();
+        loginIDs.addAll(Racers.keySet());
+        loginIDs.addAll(Organizers.keySet());
+        loginIDs.addAll(Admin.keySet());
+        return loginIDs;
+    }
     
    
     public String signUpRacer(String name, String ccInfo) {
     	UserContext copy = new UserContext();
-        copy.setUserStrategy(new Racer(ccInfo, name)); //set type and return unique ID
+        copy.setUserStrategy(new Racer(ccInfo, name));
         
+        // IDs stay simple for the CLI: Racer1, Racer2, and so on.
         int num = Racers.size();
         num++;
         String uniqueID = "Racer" + num;
@@ -52,7 +67,8 @@ public class EntranceModel {
     
     public String signUpOrganizer(String name) {
     	UserContext copy = new UserContext();
-        copy.setUserStrategy(new Organizer(name)); //set type and return unique ID
+        copy.setUserStrategy(new Organizer(name));
+        // IDs stay simple for the CLI: Organizer1, Organizer2, and so on.
         int num = Organizers.size();
         num++;
         String uniqueID = "Organizer" + num;
@@ -64,7 +80,8 @@ public class EntranceModel {
 
     public String signUpAdministrator(String name) {
     	UserContext copy = new UserContext();
-        copy.setUserStrategy(new Administrator(name)); //set type and return unique ID
+        copy.setUserStrategy(new Administrator(name));
+        // IDs stay simple for the CLI: Admin1, Admin2, and so on.
         int num = Admin.size();
         num++;
         String uniqueID = "Admin" + num;
