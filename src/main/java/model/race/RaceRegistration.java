@@ -4,6 +4,7 @@ import model.user.Racer;
 
 public class RaceRegistration {
 
+    // Lists the possible outcomes when a racer tries to register for a race.
     public enum RegistrationStatus {
         SUCCESS,
         RACE_FULL,
@@ -48,6 +49,7 @@ public class RaceRegistration {
         return registerWithPayment(racer.getCcInfo()) == RegistrationStatus.SUCCESS;
     }
 
+    // Validates race registration in order: available seats, racer eligibility, payment, then final registration.
     public RegistrationStatus registerWithPayment(String paymentInfo) {
         // report the first reason registration cannot continue.
         if (!race.hasAvailableSeats()) {
@@ -74,8 +76,8 @@ public class RaceRegistration {
         return signUpForRace();
     }
 
+    // Simulates payment processing for the registration flow.
     public boolean processPayment(String paymentInfo) {
-        // fake payment system for implementation
         return paymentInfo != null
             && !paymentInfo.trim().isEmpty()
             && !paymentInfo.equalsIgnoreCase("fail")

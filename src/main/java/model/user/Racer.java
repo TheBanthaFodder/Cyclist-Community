@@ -5,6 +5,7 @@ import java.util.List;
 import model.observer.Observer;
 import model.race.Race;
 
+// Racer represents a user role and acts as an Observer for category updates.
 public class Racer extends User implements Observer {
 
     private final String ccInfo;

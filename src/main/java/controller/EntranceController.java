@@ -69,6 +69,8 @@ public class EntranceController {
         view.viewMessage("Exiting Bike Racing System.");
     }
 
+    // Gets the user's unique ID, checks if the account exists,
+    // and returns the matching UserContext if login is successful.
     public void handleLogin() {
         if (!model.validateUserAccount()) {
             view.addError("No valid user account is available.");
@@ -95,6 +97,8 @@ public class EntranceController {
         }
     }
 
+    // Creates a new user account based on the selected role.
+    // The selected role becomes the user's strategy inside UserContext.
     public void handleSignUp() {
         String choice = view.userSelection();
         UserContext userType = null;
@@ -133,6 +137,8 @@ public class EntranceController {
         return sendUserType();
     }
 
+    // Routes the logged-in user to the correct controller based on their role.
+    // This supports the Strategy pattern because each user type has different behavior.
     public UserContext sendUserType() {
         return model.getUserType();
     }
