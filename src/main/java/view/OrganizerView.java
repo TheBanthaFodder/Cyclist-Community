@@ -1,9 +1,9 @@
-package main.java.view;
+package view;
 
-import java.util.List; 
+import java.util.List;
 
-import main.java.model.race.Race;
-import main.java.model.user.Racer;
+import model.race.Race;
+import model.user.Racer;
 
 public class OrganizerView extends CliView {
 
@@ -33,6 +33,16 @@ public class OrganizerView extends CliView {
 
     public void viewAddRaceResults() {
         printMessage("Race result added.");
+    }
+
+    public void viewMenu() {
+        printMessage("");
+        printMessage("Organizer Menu");
+        printMessage("1. Create race");
+        printMessage("2. Manage races");
+        printMessage("3. Add race results");
+        printMessage("4. View account");
+        printMessage("0. Back");
     }
 
     @Override

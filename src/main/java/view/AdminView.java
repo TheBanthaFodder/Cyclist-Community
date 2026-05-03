@@ -1,4 +1,4 @@
-package main.java.view;
+package view;
 
 public class AdminView extends CliView {
 
@@ -16,6 +16,16 @@ public class AdminView extends CliView {
 
     public void viewSystemSettings() {
         printMessage("Displaying system settings.");
+    }
+
+    public void viewMenu() {
+        printMessage("");
+        printMessage("Admin Menu");
+        printMessage("1. View user accounts");
+        printMessage("2. Manage licenses");
+        printMessage("3. View system settings");
+        printMessage("4. View account");
+        printMessage("0. Back");
     }
 
     @Override

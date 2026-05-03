@@ -1,21 +1,16 @@
 package model.application;
 
-<<<<<<< HEAD
 import java.util.HashMap; 
 import java.util.Map;
 
-import main.java.model.user.Administrator;
-import main.java.model.user.Organizer;
-import main.java.model.user.Racer;
-import src.main.java.model.user.UserContext;
-=======
-import model.race.Category;
+import model.user.Administrator;
+import model.user.Organizer;
 import model.user.Racer;
 import model.user.UserContext;
->>>>>>> 342d261c637a9ba762e255b2b22630c208b424c4
 
 public class EntranceModel {
 
+    private UserContext userType;
     
     //maps to store user types for login with unique ID
     Map<String, UserContext> Racers = new HashMap<>();
@@ -35,10 +30,14 @@ public class EntranceModel {
     	}
     	return null;
     }
+
+    public boolean validateUserAccount() {
+        return !Racers.isEmpty() || !Admin.isEmpty() || !Organizers.isEmpty();
+    }
     
    
     public String signUpRacer(String name, String ccInfo) {
-    	UserContext copy;
+    	UserContext copy = new UserContext();
         copy.setUserStrategy(new Racer(ccInfo, name)); //set type and return unique ID
         
         int num = Racers.size();
@@ -46,37 +45,33 @@ public class EntranceModel {
         String uniqueID = "Racer" + num;
         
         Racers.put(uniqueID,copy);
+        userType = copy;
         
         return uniqueID;
     }
     
     public String signUpOrganizer(String name) {
-    	UserContext copy;
+    	UserContext copy = new UserContext();
         copy.setUserStrategy(new Organizer(name)); //set type and return unique ID
         int num = Organizers.size();
         num++;
-        String uniqueID = "Organizer" + num; //TODO add all contexts to maps
+        String uniqueID = "Organizer" + num;
         
         Organizers.put(uniqueID,copy);
+        userType = copy;
         return uniqueID;
     }
 
-<<<<<<< HEAD
     public String signUpAdministrator(String name) {
-    	UserContext copy;
+    	UserContext copy = new UserContext();
         copy.setUserStrategy(new Administrator(name)); //set type and return unique ID
         int num = Admin.size();
         num++;
         String uniqueID = "Admin" + num;
         
         Admin.put(uniqueID,copy);
+        userType = copy;
         return uniqueID;
-=======
-    public UserContext signUp(String name, String ccInfo) {
-        Racer racer = new Racer(ccInfo, name);
-        Category.attachRacer(racer);
-        userType = new UserContext(racer);
-        return userType;
     }
 
     public void setUserType(UserContext userType) {
@@ -85,7 +80,6 @@ public class EntranceModel {
 
     public UserContext getUserType() {
         return userType;
->>>>>>> 342d261c637a9ba762e255b2b22630c208b424c4
     }
     
     

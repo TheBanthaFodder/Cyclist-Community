@@ -1,14 +1,13 @@
-package main.java.model.user;
+package model.user;
 
-public class Administrator implements UserStrategy {
-	private final String name;
+public class Administrator extends User {
 
     public Administrator(String name) {
-        this.name = name;
+        super(name);
     }
 
     @Override
     public String getUserData() {
-        return String.format("Administrator{name='%s'}", this.name);
+        return String.format("Administrator{name='%s'}", getName());
     }
 }

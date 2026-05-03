@@ -1,6 +1,5 @@
-package main.java.model.user;
+package model.user;
 
 public interface UserStrategy {
-	//override method for all concrete strategies
     String getUserData();
 }

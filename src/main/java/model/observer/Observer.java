@@ -1,6 +1,5 @@
-package main.java.model.observer;
+package model.observer;
 
 public interface Observer {
-	//notify observer of update
     void receiveCategoryUpdate();
 }

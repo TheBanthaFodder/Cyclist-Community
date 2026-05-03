@@ -1,22 +1,20 @@
-package main.java.model.user;
+package model.user;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.List;
-import main.java.model.observer.Observer;
-import main.java.model.race.Race;
+import model.observer.Observer;
+import model.race.Race;
 
-public class Racer implements UserStrategy, Observer{ //implements observer?
+public class Racer extends User implements Observer {
 
     private final String ccInfo;
     private int cat;
     private int podiums;
     private final List<Race> racesAttended;
     private int totalWins;
-    private String name;
 
-    //new racer registration
     public Racer(String ccInfo, String name) {
-        this.name = name;
+        super(name);
         this.ccInfo = ccInfo;
         this.cat = 5;
         this.podiums = 0;
@@ -70,7 +68,7 @@ public class Racer implements UserStrategy, Observer{ //implements observer?
     public String getUserData() {
         return String.format(
             "Racer{name='%s', ccInfo='%s', category=%d, podiums=%d, totalWins=%d}",
-            this.name,
+            getName(),
             ccInfo,
             cat,
             podiums,

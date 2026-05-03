@@ -1,8 +1,8 @@
-package main.java.view;
+package view;
 
-import java.util.List; 
+import java.util.List;
 
-import main.java.model.race.Race;
+import model.race.Race;
 
 public class RacerView extends CliView {
 
@@ -44,6 +44,16 @@ public class RacerView extends CliView {
 
     public void viewFeedbackSaved() {
         printMessage("Feedback saved.");
+    }
+
+    public void viewMenu() {
+        printMessage("");
+        printMessage("Racer Menu");
+        printMessage("1. Buy license");
+        printMessage("2. Register for race");
+        printMessage("3. Review race");
+        printMessage("4. View account");
+        printMessage("0. Back");
     }
 
     @Override

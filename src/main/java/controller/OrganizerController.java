@@ -82,6 +82,11 @@ public class OrganizerController {
         view.viewErrors();
     }
 
+    public String handleMenu() {
+        view.viewMenu();
+        return view.getUserInput("Choose organizer option: ");
+    }
+
     public void setUser(UserContext user) {
         model.setUser(user);
     }

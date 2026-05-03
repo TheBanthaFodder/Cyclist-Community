@@ -81,6 +81,11 @@ public class RacerController {
         view.viewErrors();
     }
 
+    public String handleMenu() {
+        view.viewMenu();
+        return view.getUserInput("Choose racer option: ");
+    }
+
     public void setUser(UserContext user) {
         model.setUser(user);
     }

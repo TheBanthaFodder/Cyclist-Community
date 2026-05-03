@@ -1,9 +1,9 @@
-import main.java.controller.EntranceController;
+import controller.EntranceController;
 
-public class LaunchApp{
-    public static void main(String[] args){
-        //make an entrance Controller
-    	EntranceController ec = new EntranceController();
-    	ec.entranceLoop();
+public class LaunchApp {
+
+    public static void main(String[] args) {
+        EntranceController entranceController = new EntranceController();
+        entranceController.runApp();
     }
 }

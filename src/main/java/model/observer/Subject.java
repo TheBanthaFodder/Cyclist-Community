@@ -1,4 +1,4 @@
-package main.java.model.observer;
+package model.observer;
 
 public abstract class Subject {
 

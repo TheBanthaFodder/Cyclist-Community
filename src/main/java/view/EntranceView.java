@@ -1,37 +1,49 @@
-package main.java.view;
+package view;
 
 public class EntranceView extends CliView {
 
     public EntranceView() {
         super();
     }
-    
-    //first user interaction
-    public String entrance() {//welcome prompt
-    	return promptForInput("Please select an option:\n"
-    			+ "1: Login\n"
-    			+ "2: Sign Up\n");
-    }
-    
-    public String userSelection() { //for sign up
-    	return promptForInput("Select User Type:\n"
-    			+ "1: Administrator\n"
-    			+ "2: Organizer\n"
-    			+ "3: Racer\n");
+
+    public void viewLogin() {
+        printMessage("Displaying login form.");
     }
 
-    public String viewLogin() { // for log in
-        promptForInput("Please enter your unique Id:");
+    public void viewSignUp() {
+        printMessage("Account created.");
     }
 
-    public void viewSignUp(String id) {
-        printMessage("You have signed up!\n"
-        		+ "Your Unique ID is " + id + "\n"
-        		+"Please use this to login\n");
+    public void viewSignUp(String uniqueID) {
+        viewSignUp();
+        printMessage("Your login ID is: " + uniqueID);
+        printMessage("Use this ID to login");
+    }
+
+    public String entrance() {
+        printMessage("");
+        printMessage("Bike Racing System");
+        printMessage("1. Login");
+        printMessage("2. Sign Up");
+        printMessage("0. Exit");
+        return getUserInput("Choose option: ");
+    }
+
+    public String userSelection() {
+        printMessage("");
+        printMessage("Select User Type");
+        printMessage("1. Administrator");
+        printMessage("2. Organizer");
+        printMessage("3. Racer");
+        return getUserInput("Choose user type: ");
+    }
+
+    public void viewMessage(String message) {
+        printMessage(message);
     }
 
     @Override
-    public String getUserInput() { 
+    public String getUserInput() {
         return super.getUserInput("Entrance input: ");
     }
 }

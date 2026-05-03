@@ -56,6 +56,7 @@ public class OrganizerModel {
         racer.recordRaceResult(race, placement, race.isOfficial());
 
         for (Category category : race.getCategories()) {
+            // flow leads to notify observer
             category.checkForUpgrade();
         }
     }
