@@ -43,9 +43,14 @@ java Main
 Or 
 
 ## Compilation:
+```bash
 gradle build
+```
+
 ## Running the Program:
+```bash
 gradle runApp
+```
 ## Notes:
 
 ---
