@@ -2,7 +2,7 @@
 ## Contributors:
 * MEHURZEL
 * WAMORGA4
-* ZDANIE1
+* ZHDANIE1
 * [add names]
 
 ## Compilation:
