@@ -183,4 +183,4 @@ This project successfully demonstrates:
 * A complete MVC-based system
 * Integration of Strategy and Observer design patterns
 * A working implementation of core system functionality
-* Alignment with system requirements and design principles
+ Alignment with system requirements and design principles
