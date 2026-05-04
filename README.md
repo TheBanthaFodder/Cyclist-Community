@@ -4,7 +4,7 @@
 * WAMORGA4
 * ZHDANIE1
 * MCLONGO
-* [add names]
+* LORIHUEL
 
 ## Compilation:
 gradle build
