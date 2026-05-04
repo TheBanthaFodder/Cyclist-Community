@@ -1,5 +1,13 @@
 package model.race;
 
+
+/**
+ * Category Class
+ * 
+ * This class represents a racing category (Cat 5 -> Cat 1).
+ * It acts as the Subject in the Observer pattern.
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,11 +104,17 @@ public class Category extends Subject {
         }
     }
 
+    /**
+     * Attach an observer (e.g., Racer)
+     */
     @Override
     public void attach(Observer observer) {
         allObservers.add(observer);
     }
 
+    /**
+     * Remove an observer
+     */
     @Override
     public void detach(Observer observer) {
         allObservers.remove(observer);
