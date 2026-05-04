@@ -50,7 +50,27 @@ public class OrganizerController {
     }
 
     public void handleAddRaceResults() {
-        // TODO
+        List<Race> races = model.getManagedRaces();
+        if (races.isEmpty()) {
+            view.addError("No races are available.");
+            handleErrors();
+            return;
+        }
+
+        view.viewManageRace(races);
+        int raceIndex = Integer.parseInt(view.getUserInput("Choose race number: ")) - 1;
+        Race race = races.get(raceIndex);
+
+        if (race.getParticipants().isEmpty()) {
+            view.addError("No racers are registered for this race.");
+            handleErrors();
+            return;
+        }
+
+        view.viewParticipants(race);
+        int racerIndex = Integer.parseInt(view.getUserInput("Choose racer number: ")) - 1;
+        int placement = Integer.parseInt(view.getUserInput("Enter racer placement: "));
+        model.addRaceResult(raceIndex, racerIndex, placement);
         view.viewAddRaceResults();
     }
 
@@ -60,6 +80,11 @@ public class OrganizerController {
 
     public void handleErrors() {
         view.viewErrors();
+    }
+
+    public String handleMenu() {
+        view.viewMenu();
+        return view.getUserInput("Choose organizer option: ");
     }
 
     public void setUser(UserContext user) {

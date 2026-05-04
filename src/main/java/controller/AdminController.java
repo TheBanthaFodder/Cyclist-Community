@@ -47,6 +47,11 @@ public class AdminController {
         view.viewErrors();
     }
 
+    public String handleMenu() {
+        view.viewMenu();
+        return view.getUserInput("Choose admin option: ");
+    }
+
     public void setUser(UserContext user) {
         model.setUser(user);
     }

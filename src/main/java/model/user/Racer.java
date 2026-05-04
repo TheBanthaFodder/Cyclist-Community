@@ -15,7 +15,6 @@ package model.user;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.observer.Observer;
 import model.race.Race;
 

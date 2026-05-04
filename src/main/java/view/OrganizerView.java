@@ -24,12 +24,25 @@ public class OrganizerView extends CliView {
     }
 
     public void viewParticipants(Race race) {
-        // TODO
-        printMessage("Participant list flow not finished yet.");
+        printMessage("Participants for " + race + ":");
+        List<Racer> racers = race.getParticipants();
+        for (int i = 0; i < racers.size(); i++) {
+            printMessage((i + 1) + ". " + racers.get(i).getName());
+        }
     }
 
     public void viewAddRaceResults() {
         printMessage("Race result added.");
+    }
+
+    public void viewMenu() {
+        printMessage("");
+        printMessage("Organizer Menu");
+        printMessage("1. Create race");
+        printMessage("2. Manage races");
+        printMessage("3. Add race results");
+        printMessage("4. View account");
+        printMessage("0. Back");
     }
 
     @Override

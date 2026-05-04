@@ -15,7 +15,6 @@ public class RaceResult {
     private static Race latestRace;
 
     public void addResults() {
-        // TODO
         if (!pastRaces.contains(latestRace)) {
             pastRaces.add(latestRace);
         }
@@ -27,11 +26,11 @@ public class RaceResult {
     }
 
     public void recordResult(Race race, Racer racer, int placement) {
-        // TODO
+        addResults(race);
+        placementsByRacer.put(resultKey(race, racer), placement);
     }
 
     public List<Race> reviewRace() {
-        // TODO
         return pastRaces;
     }
 
@@ -40,17 +39,23 @@ public class RaceResult {
     }
 
     public int getPlacement(Race race, Racer racer) {
-        // TODO
-        return 0;
+        Integer placement = placementsByRacer.get(resultKey(race, racer));
+        if (placement == null) {
+            return 0;
+        }
+        return placement;
     }
 
     public void giveFeedback(Race race, Racer racer, String feedback) {
-        // TODO
+        feedbackByRacer.put(feedbackKey(race, racer), feedback);
     }
 
     public String getFeedbackForRace(Race race, Racer racer) {
-        // TODO
-        return "";
+        String feedback = feedbackByRacer.get(feedbackKey(race, racer));
+        if (feedback == null) {
+            return "";
+        }
+        return feedback;
     }
 
     private String raceKey(Race race) {

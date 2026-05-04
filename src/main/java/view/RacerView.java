@@ -21,7 +21,15 @@ public class RacerView extends CliView {
     public void viewAvailableRaces(List<Race> races) {
         printMessage("Available races:");
         for (int i = 0; i < races.size(); i++) {
-            printMessage((i + 1) + ". " + races.get(i));
+            Race race = races.get(i);
+            printMessage(
+                (i + 1)
+                    + ". "
+                    + race
+                    + " - "
+                    + race.getSeatsRemaining()
+                    + " seats remaining"
+            );
         }
     }
 
@@ -29,8 +37,31 @@ public class RacerView extends CliView {
         printMessage("Race registration complete.");
     }
 
+    public void viewRaceFull() {
+        printMessage("Selected race is full.");
+    }
+
+    public void viewIneligible() {
+        printMessage("You are not eligible for this race.");
+    }
+
+    public void viewRegistrationConfirmation(Race race) {
+        printMessage("Confirming registration for: " + race);
+    }
+
+    public void viewPaymentFailure() {
+        printMessage("Payment was unsuccessful.");
+    }
+
+    public void viewConfirmationSent() {
+        printMessage("Confirmation sent.");
+    }
+
+    public void viewRegistrationCancelled() {
+        printMessage("Registration cancelled.");
+    }
+
     public void viewReviewRace(List<Race> races) {
-        // TODO
         printMessage("Past races:");
         for (int i = 0; i < races.size(); i++) {
             printMessage((i + 1) + ". " + races.get(i));
@@ -38,13 +69,23 @@ public class RacerView extends CliView {
     }
 
     public void viewSelectedRace(Race race, int placement, String feedback) {
-        // TODO
-        printMessage("Race detail view not finished yet.");
+        printMessage("Reviewing: " + race);
+        printMessage("Recorded placement: " + placement);
+        printMessage("Current feedback: " + feedback);
     }
 
     public void viewFeedbackSaved() {
-        // TODO
-        printMessage("Feedback flow not finished yet.");
+        printMessage("Feedback saved.");
+    }
+
+    public void viewMenu() {
+        printMessage("");
+        printMessage("Racer Menu");
+        printMessage("1. Buy license");
+        printMessage("2. Register for race");
+        printMessage("3. Review race");
+        printMessage("4. View account");
+        printMessage("0. Back");
     }
 
     @Override
