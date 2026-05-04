@@ -1,4 +1,3 @@
-=======
 # Cyclist Community – Deliverable 4
 
 ## Contributors:
