@@ -5,7 +5,7 @@
 * WAMORGA4
 * ZHDANIE1
 * MCLONGO
-* [add names]
+* LORIHUEL
 
 Video Link:
 [ADD FINAL VIDEO LINK HERE]
