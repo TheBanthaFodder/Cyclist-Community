@@ -3,7 +3,7 @@
 * MEHURZEL
 * WAMORGA4
 * ZHDANIE1
-* 
+* MCLONGO
 * [add names]
 
 ## Compilation:
