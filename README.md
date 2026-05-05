@@ -8,7 +8,7 @@
 * LORIHUEL
 
 Video Link:
-[ADD FINAL VIDEO LINK HERE]
+ttps://youtu.be/vkSzYyoBtc8 
 
 ---
 
